@@ -16,10 +16,10 @@ def main(req:func.HttpRequest) -> func.HttpResponse:
 
     action = req.params["action"]
     if action == "SQL":
-        server = "tcp:dotnet-core-linux.database.windows.net"
-        database = "testPythonFuncDB"
-        username = "aa"
-        password = "root@1234"
+        server = "<SECRET>"
+        database = "<SECRET>"
+        username = "<SECRET>"
+        password = "<SECRET>"
         cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
         cursor = cnxn.cursor()
         #logging.info(cursor)
@@ -33,14 +33,14 @@ def main(req:func.HttpRequest) -> func.HttpResponse:
     elif action == "blob":
         #blob test
         logging.info("blob action")
-        credential = "qiCTKFU0ikIRk1yr2tA1w4idrt7hD5S1MatW69yoQhU8GN/V+7kf81c/VVX1ROBFjRIXo2Ap/oZo6O4P2FY58A=="
-        service = BlobServiceClient(account_url="https://storageaccountlinux8c6d.blob.core.windows.net", credential=credential)
+        credential = "<SECRET>"
+        service = BlobServiceClient(account_url="<SECRET>", credential=credential)
         container_names = next(service.list_containers())
         #logging.info(container_names)
-        container = service.get_container_client("testblobbinding")
+        container = service.get_container_client("<SECRET>")
         blob_names = next(container.list_blobs())
         #logging.info(blob_names)
-        blob = container.get_blob_client("新建文本文档.txt")
+        blob = container.get_blob_client("<SECRET>")
         dl_stream = blob.download_blob()
         #logging.info(dl_stream.content_as_text())
         return func.HttpResponse(dl_stream.content_as_text())
